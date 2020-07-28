@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des figures{% endblock %}
+
+{% block body %}
+
+<section>
+	<div class="container" style="margin-top:60px;">
+		{# {{ dump(tricks)}} #}
+		<h2>Liste des figures</h2>
+
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+			{% for trick in tricks %}
+      <div class="col mb-4">
+				<div class="card">
+					<img src="{{ trick.image }}" class="img_post" alt="...">
+					<div class="card-body">
+						<a href="{{ path('trick.show', {id: trick.id})  }}"><h5 class="card-title">{{ trick.name }}  {{ trick.id }}</h5></a>
+						<block class="blocktext">
+            	<a href=""><i class="fas fa-pen"></i></a>
+							<a href=""><i class="far fa-trash-alt"></i></a>
+						</block>
+					</div>
+				</div>
+			</div>
+      {% endfor %}
+		</div><!-- /.row 1-->
+  </div><!-- /.container -->
+</section>
+
+{% endblock %}
