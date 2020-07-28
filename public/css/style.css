@@ -32,14 +32,6 @@
     justify-content: center;
 }
 
-#img_post {
-
-  width: 200px;
+.img_post {
   height: 150px;
-}
-
-.card {
-    
-  width: 200px;
-  height: 200px;
 }
