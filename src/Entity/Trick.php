@@ -42,6 +42,11 @@ class Trick
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Trick
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCategory(): ?int
+    {
+        return $this->category;
+    }
+
+    public function setCategory(int $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
