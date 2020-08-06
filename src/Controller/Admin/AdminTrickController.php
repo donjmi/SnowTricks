@@ -5,7 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminTrickController extends AbstractController
@@ -34,9 +36,19 @@ class AdminTrickController extends AbstractController
     /**
      * @Route("/admin/trick/{id}", name="admin.trick.edit")
      */
-    public function edit(Trick $trick)
+    public function edit(Trick $trick, Request $request)
+    // public function edit(Trick $trick, Request $request, ObjectManager $objectManager)
     {
         $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+        //     $objectManager->persist($trick);
+        //     $objectManager->flush();
+            $objectManager = $this->getDoctrine()->getManager();
+            $objectManager->flush();
+            return $this->redirectToRoute("admin.trick.index");
+        }
+
         return $this->render('Admin/trick/edit.html.twig', [
             'trick' => $trick,
             'form'  => $form->createview()
