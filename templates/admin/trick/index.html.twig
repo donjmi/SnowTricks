@@ -13,14 +13,14 @@
         <table class="table table-striped">
             <thead>
                 <th>Nom</th>
-                {# <th>Categorie</th> #}
+                <th>Categorie</th>
                 <th>Actions</th>
             </thead>
             <tbody>
 	        {% for trick in tricks %}
             <tr>
                 <td>{{ trick.name }}</td>
-                {# <td>{{ trick.description }}</td> #}
+                <td>{{ trick.categorie.label }}</td>
                 <td>
                 <a href="{{ path('admin.trick.edit', {id: trick.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i> Editer</a>
                 <a href="{{ path('admin.trick.edit', {id: trick.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Supprimer</a>
