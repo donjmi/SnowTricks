@@ -43,9 +43,9 @@ class Trick
     private $image;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks")
      */
-    private $category;
+    private $categorie;
 
     public function getId(): ?int
     {
@@ -112,14 +112,14 @@ class Trick
         return $this;
     }
 
-    public function getCategory(): ?int
+    public function getCategorie(): ?Category
     {
-        return $this->category;
+        return $this->categorie;
     }
 
-    public function setCategory(int $category): self
+    public function setCategorie(?Category $categorie): self
     {
-        $this->category = $category;
+        $this->categorie = $categorie;
 
         return $this;
     }
