@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+ 
+{% block body %}
+<div class="container mt-5">
+	<h1>Ajouter une figure</h1>
+
+	
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-4">{{ form_row(form.name) }}</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">{{ form_row(form.categorie) }}</div>
+	</div>
+	<div class="row">
+		<div class="col">{{ form_row(form.description) }}</div>
+	</div>
+	<div class="row">
+		<div class="col">{{ form_row(form.image) }}</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<button type="submit" class="btn btn-primary">Enregistrer</button>
+                <a  href="{{ path('admin.trick.index') }}" class="btn btn-info" role="button"> Retour</a>
+		</div>
+	</div>
+	{{ form_end(form) }}
+</div>
+
+    
+        
+{% endblock %}
