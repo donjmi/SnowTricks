@@ -9,6 +9,9 @@
 		<div class="col-md-4">{{ form_row(form.name) }}</div>
 	</div>
 	<div class="row">
+		<div class="col-md-4">{{ form_row(form.categorie) }}</div>
+	</div>
+	<div class="row">
 		<div class="col">{{ form_row(form.description) }}</div>
 	</div>
 	<div class="row">
@@ -16,7 +19,7 @@
 	</div>
 	<div class="row">
 		<div class="col">
-			<button class="btn btn-primary">Modifier</button>
+			<button type="submit" class="btn btn-primary">Modifier</button>
                 <a  href="{{ path('admin.trick.index') }}" class="btn btn-info" role="button"> Retour</a>
 		</div>
 	</div>
