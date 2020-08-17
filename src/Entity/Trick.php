@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TrickRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -50,6 +52,23 @@ class Trick
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks")
      */
     private $categorie;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
+     */
+    private $pictures;
+
+    /**
+     *@Assert\All({
+     *  @Assert\Image(mimeTypes="image/jpeg")
+     *})
+     */
+    private $pictureFiles;
+
+    public function __construct()
+    {
+        $this->pictures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -125,6 +144,69 @@ class Trick
     {
         $this->categorie = $categorie;
 
+        return $this;
+    }
+
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        if ($this->pictures->isEmpty()){
+            return null;
+        }
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->contains($picture)) {
+            $this->pictures->removeElement($picture);
+            // set the owning side to null (unless already changed)
+            if ($picture->getTrick() === $this) {
+                $picture->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPictureFiles()
+    {
+        return $this->pictureFiles;
+    }
+
+    /**
+     * @return mixed $pictureFiles
+     * @return Trick
+     */
+    public function setPictureFiles($pictureFiles): self
+    {
+        foreach ($pictureFiles as $pictureFile) {
+            $picture = new picture();
+            $picture->setImageFile($pictureFile);
+            $this->addPicture($picture);
+        }
+       
+        $this->pictureFiles = $pictureFiles;
         return $this;
     }
 }
